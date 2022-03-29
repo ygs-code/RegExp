@@ -698,7 +698,8 @@ var s = "ggle gogle google gooogle goooogle gooooogle goooooogle gooooooogle goo
 1) 如果仅匹配单词 ggle 和 gogle，可以设计：
 
 ```
-var r = /go?gle/g;var a = s.match(r);
+var r = /go?gle/g;
+var a = s.match(r);
 ```
 
 量词
@@ -710,31 +711,36 @@ var r = /go?gle/g;var a = s.match(r);
 表示前面字符或子表达式为可有可无，等效于：
 
 ```
-var r = /go{0,1}gle/g;var a = s.match(r);
+var r = /go{0,1}gle/g;
+var a = s.match(r);
 ```
 
 2) 如果匹配第 4 个单词 gooogle，可以设计：
 
 ```
-var r = /go{3}gle/g;var a = s.match(r);
+var r = /go{3}gle/g;
+var a = s.match(r);
 ```
 
 等效于：
 
 ```
-var r = /gooogle/g;var a = s.match(r);
+var r = /gooogle/g;
+var a = s.match(r);
 ```
 
 3) 如果匹配第 4 个到第 6 个之间的单词，可以设计：
 
 ```
-var r = /go{3,5}gle/g;var a = s.match(r);
+var r = /go{3,5}gle/g;
+var a = s.match(r);
 ```
 
 4) 如果匹配所有单词，可以设计：
 
 ```
-var r = /go*gle/g;var a = s.match(r);
+var r = /go*gle/g;
+var a = s.match(r);
 ```
 
 量词
@@ -766,7 +772,8 @@ var a = s.match(r);
 表示前面字符或子表达式至少出现 1 次，最多重复次数不限。等效于：
 
 ```
-var r = /go{1,}gle/g;var a = s.match(r);
+var r = /go{1,}gle/g;
+var a = s.match(r);
 ```
 
 重复类量词总是出现在它们所作用的字符或子表达式后面。如果想作用于多个字符，需要使用小括号把它们包裹在一起形成一个子表达式。
