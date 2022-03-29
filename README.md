@@ -832,7 +832,7 @@ var a = s.match(r);  //返回单个元素数组["<html>"]
 下面代码演示如何使用边界量词。先定义字符串：
 
 ```
-var s = "how are you"
+var s = "how are you " 
 ```
 
 1) 匹配最后一个单词
