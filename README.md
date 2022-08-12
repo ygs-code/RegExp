@@ -1091,3 +1091,129 @@ var a = r.test(si);
 ```
 
 非引用型分组必须使用子表达式，但是又不希望存储无用的匹配信息，或者希望提高匹配速度来说，是非常重用的方法。
+
+
+
+# [正则表达式排除写法](https://www.cnblogs.com/mengff/p/16390372.html)
+
+**1. 简单排除**
+
+[^a]*                       排除a
+
+[^abc]*                    排除a,b,c
+
+\D                          排除数字
+
+\S                          排除空格
+
+[^\u4E00-\u9FA5]   排除汉字
+
+ 
+
+**2. 排除某个单词**
+
+/^((?!hello).)+$/    排除 hello
+
+((?!天空).)*           排除 天空
+
+\b(?!cat\b)\w+     排除 cat
+
+ 
+
+**3. 排除的写法结构**
+
+ 
+
+^(?!排除判断).*key(?!排除判断).*$
+
+**4. 排除多个**
+
+^(?!.*(?:取消|撤销|删除)).*小微
+
+(?!.*(?:abc|123))    排除abc或者123
+
+^(?!.*(?:取消|撤销|删除)).*小微(?!.*(?:企业|贷款|快贷|商户|公司)).*$
+
+ 
+
+例子：
+
+**1. 匹配不包含"天空"，包含"花儿"的句子**
+
+```
+import re
+string = '太阳天空照，花儿对我笑'
+result = re.findall(r'^(?:(?!天空).)*?花儿.*$', string)
+print(result)
+# []
+string = '太阳空中照，花儿对我笑'
+result = re.findall(r'^(?:(?!天空).)*?花儿.*$', string)
+print(result)
+# ['太阳空中照，花儿对我笑']
+```
+
+**2. 匹配今天的天气，而不是明天的**
+
+
+
+```
+import re
+s1 = 'how is the weather today'
+s2 = 'how is the weather tomorrow'
+
+regex = r'(^.*weather(?:(?!tomorrow).)*$)'
+result1 = re.findall(regex, s1)
+result2 = re.findall(regex, s2)
+print('result1: ', result1)
+print('result2: ', result2)
+# result1:  ['how is the weather today']
+# result2:  []
+```
+
+**3. 匹配&和;之间不含有test的字符**
+
+```
+str = "hello&nbsp;&test1;test&qout;";
+```
+
+正则表达式：/&((?!test).)+;/g
+
+匹配结果：&nbsp; 和 &qout;
+
+ 
+
+**4. 匹配不含有<img>标签的<div></div>标签**
+
+```
+str = "<div id='1'><img class='xx'></div><div id='1'><input type=''text"></div>";
+```
+
+正则表达式： /<div[^>]*>((?!<img[^>]*>).)+</div>/g
+
+匹配结果：<div id='1'><input type=''text"></div>
+
+ 
+
+**5. 不包含robots的句子**
+
+```
+^(?!.*?robots).*$
+```
+
+**6. 不以2009-07-08开头的条目**
+
+```
+^(?!2009-07-08).*?$
+```
+
+ 
+
+ 
+
+出处：https://blog.csdn.net/xuyangxinlei/article/details/81359366
+
+　　   https://www.cnblogs.com/zongfa/p/14818734.html
+
+　　　https://www.zhihu.com/question/511356890
+
+　　   https://blog.csdn.net/j10a/article/details/73457309
